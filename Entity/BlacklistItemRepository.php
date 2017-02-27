@@ -27,8 +27,15 @@ class BlacklistItemRepository extends EntityRepository
      */
     public function findBySender($email)
     {
-        $queryBuilder = $this->createQueryBuilder('entity')
-            ->where('REGEXP(:email, entity.regexp) = true')
+        $queryBuilder = $this->createQueryBuilder('entity');
+        $dbPlatformName = $queryBuilder->getEntityManager()->getConnection()->getDatabasePlatform()->getName();
+        if (preg_match('/postgresql/', $dbPlatformName)) {
+            $queryBuilder->getEntityManager()
+                ->getConfiguration()
+                ->addCustomStringFunction('REGEXP', 'Sulu\Bundle\CommunityBundle\DoctrineExtensions\Query\Postgresql\Regexp');
+        }
+        // NOTE: SQLite seems to have similar syntax, so this might or might not work for SQLite too
+        $queryBuilder->where('REGEXP(:email, entity.regexp) = true')
             ->setParameter('email', $email);
 
         return $queryBuilder->getQuery()->getResult();

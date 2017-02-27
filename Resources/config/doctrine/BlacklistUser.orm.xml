@@ -2,7 +2,8 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="Sulu\Bundle\CommunityBundle\Entity\BlacklistUser" table="com_blacklist_user"
+    <entity name="Sulu\Bundle\CommunityBundle\Entity\BlacklistUser"
+            table="com_blacklist_user"
             repository-class="Sulu\Bundle\CommunityBundle\Entity\BlacklistUserRepository">
         <indexes>
             <index columns="token"/>

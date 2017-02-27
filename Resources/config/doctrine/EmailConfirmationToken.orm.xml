@@ -2,7 +2,8 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="Sulu\Bundle\CommunityBundle\Entity\EmailConfirmationToken" table="com_email_token"
+    <entity name="Sulu\Bundle\CommunityBundle\Entity\EmailConfirmationToken"
+            table="com_email_token"
             repository-class="Sulu\Bundle\CommunityBundle\Entity\EmailConfirmationTokenRepository">
         <indexes>
             <index columns="token"/>

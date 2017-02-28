@@ -9,11 +9,21 @@ cache:
 matrix:
   include:
     - php: 5.5
-      # env:
-      #   - COMPOSER_FLAGS="--prefer-lowest --prefer-dist --no-interaction"
+      env:
+        - COMPOSER_FLAGS="--prefer-lowest --prefer-dist --no-interaction"
+    - php: 5.6
+      env:
+        - COMPOSER_FLAGS="--prefer-lowest --prefer-dist --no-interaction"
+        - SYMFONY__DATABASE__DRIVER=pdo_pgsql
+        - SYMFONY__DATABASE__USER=postgres
+        - SYMFONY__DATABASE__PASSWORD=postgres
     - php: 7.0
+    - php: 7.1
       env:
       # - COMPOSER_FLAGS="--prefer-dist --no-interaction"
+        - SYMFONY__DATABASE__DRIVER=pdo_pgsql
+        - SYMFONY__DATABASE__USER=postgres
+        - SYMFONY__DATABASE__PASSWORD=postgres
         - CODE_COVERAGE=true
 
 before_install:
@@ -29,5 +39,8 @@ script:
   - ./vendor/bin/phpunit --coverage-clover=coverage.clover
 
 after_script:
-  - if [[ $CODE_COVERAGE == 'true' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
-  - if [[ $CODE_COVERAGE == 'true' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
+  - |
+    if [[ $CODE_COVERAGE == 'true' ]]; then
+        wget https://scrutinizer-ci.com/ocular.phar
+        php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+    fi
